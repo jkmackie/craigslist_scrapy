@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
 import scrapy
 
+#scrape with this terminal command:  scrapy crawl clspider -o mycity.json
+#Must be in tensorflow environement with scrapy 1.60.  Shift + Alt + F to format JSON.
+
 class ClspiderSpider(scrapy.Spider):
     name = 'clspider'
     allowed_domains = ['craigslist.org']
-    start_urls = ['https://houston.craigslist.org/search/cta?auto_make_model=ford']  #cta is cars + trucks by ALL
-    base_url = 'https://houston.craigslist.org'
+    start_urls = ['https://elpaso.craigslist.org/search/cta?auto_make_model=ford']  #cta is cars + trucks by ALL
+    base_url = 'https://elpaso.craigslist.org'
     
     #Get all the vehicle_url    
     def parse(self, response):
@@ -26,6 +29,7 @@ class ClspiderSpider(scrapy.Spider):
         title = response.xpath('//span[@id="titletextonly"]/text()').extract_first()
         price = response.xpath('//span[@class="price"]/text()').extract_first()
         subLocation = response.xpath('//span[@class="price"]/following-sibling::small/text()').extract_first()
+        body = response.xpath('//section[@id="postingbody"]/text()').extract()
         attribDict={}
         for i in range(0,len(response.xpath('//p[@class="attrgroup"]/span/b').extract())):
             attribDict[i] = response.xpath('//p[@class="attrgroup"]/span').extract()[i]
@@ -38,6 +42,7 @@ class ClspiderSpider(scrapy.Spider):
             'Title' : title,
             'Price' : price,
             'SubLoc' : subLocation,
+            'Body' : body,
             'AttribDictionary' : attribDict,
             'ImageDictionary' : imageDict
         }
