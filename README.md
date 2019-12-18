@@ -1,2 +1,2 @@
 # craigslist_scrapy
-scraping CraigsList data with scrapy
+Extract CraigsList car data with scrapy
