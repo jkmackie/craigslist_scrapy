@@ -2,7 +2,7 @@
 import scrapy
 
 #scrape with this terminal command:  scrapy crawl clspider -o mycity.json
-#Must be in tensorflow environement with scrapy 1.60.  Shift + Alt + F to format JSON.
+#scrapy version = 1.60.  Shift + Alt + F to format JSON in VS Code.
 
 class ClspiderSpider(scrapy.Spider):
     name = 'clspider'
